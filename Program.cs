@@ -14,20 +14,22 @@ namespace Exercicio1
             //Teste para ver se é um INT que está sendo digitado mesmo
             while (!int.TryParse(Console.ReadLine(), out numero))
             {
+                Console.Clear();
                 Console.Write("Número Inválido! Digite Novamente: ");
             }
 
             String nome;
+            Console.Write("Nome do Titular da Conta: ");
             do
             {
-                Console.Write("Nome do Titular da Conta: ");
                 nome = Console.ReadLine();
-                //teste para ver se são caracteres
-                if (string.IsNullOrWhiteSpace(nome))
+                //Verifica se tem espaço vazio e se tem numeros
+                if (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit))
                 {
+                    Console.Clear();
                     Console.Write("Nome Inválido! Digite Novamente: ");
                 }
-            } while (string.IsNullOrWhiteSpace(nome));
+            } while (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit));
 
             Console.Write("Haverá depósito inicial (s/n)?");
             string resp = Console.ReadLine().ToUpper();//transformar o que for digitado em CAPSLOCK
@@ -37,12 +39,13 @@ namespace Exercicio1
                 double saldo;
                 while (!double.TryParse(Console.ReadLine(), out saldo) || saldo <= 0)
                 {
-                    Console.Write("Valor Inválido para Depósito! Digite Novamente: ")
+                    Console.Write("Valor Inválido para Depósito! Digite Novamente: ");
                 }
                 conta = new ContaBancaria(numero, nome, saldo);
             }
             else
             {
+                Console.Clear();
                 conta = new ContaBancaria(numero, nome);
             }
 
@@ -70,19 +73,25 @@ namespace Exercicio1
             {
                 Console.Write($"Saldo Atual em conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
                 double saque;
+                Console.Write("\nDigite o Valor para Saque: ");
                 do
                 {
-                    Console.Write("\nDigite o Valor para Saque: ");
-
-                    if (!double.TryParse(Console.ReadLine(), NumberStyles.Float, CultureInfo.InvariantCulture, out saque) || saque <= 0)
+                    string sq = Console.ReadLine();
+                    if (!double.TryParse(sq, NumberStyles.Float, CultureInfo.InvariantCulture, out saque) || saque <= 0)
                     {
-                        Console.Write("Valor Inválido para Saque! Digite Novamente o Valor: ");
+                        Console.Clear();
+                        Console.Write($"Saldo Atual em Conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Console.Write("\nValor Digitado: " + sq);
+                        Console.Write("\nValor Inválido para Saque! Digite Novamente o Valor: ");
                     }
                     else if (conta.Saldo < saque)
                     {
-                        Console.Write("Saldo Insuficiente para Relização de Saque!\nDigite um Valor Menor: ");
+                        Console.Clear();
+                        Console.Write($"Saldo Atual em Conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Console.Write("\nValor Digitado: " + sq);
+                        Console.Write("\nSaldo Insuficiente para Relização de Saque!\nDigite um Valor Menor: ");
                     }
-                } while (saque <= 0 || conta.Saldo < saque);
+                } while (saque <= 0 || saque > conta.Saldo);
 
                 conta.Saque(saque);
 
@@ -93,7 +102,7 @@ namespace Exercicio1
             }
             else
             {
-                Console.WriteLine("Agradecemos sua Preferia com nosso Banco! \nTenha um Bom Dia.");
+                Console.WriteLine("Agradecemos sua Preferia com Nosso Banco! \nTenha um Bom Dia.");
             }
 
         }
