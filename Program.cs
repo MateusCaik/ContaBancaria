@@ -68,15 +68,18 @@ namespace Exercicio1
             string respS = Console.ReadLine().ToUpper();
 
             Console.Clear();
+            double saque = 0.0;
 
             if (respS == "S" || respS == "SIM")
             {
                 Console.Write($"Saldo Atual em conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
-                double saque;
                 Console.Write("\nDigite o Valor para Saque: ");
+
                 do
                 {
+
                     string sq = Console.ReadLine();
+
                     if (!double.TryParse(sq, NumberStyles.Float, CultureInfo.InvariantCulture, out saque) || saque <= 0)
                     {
                         Console.Clear();
@@ -84,7 +87,7 @@ namespace Exercicio1
                         Console.Write("\nValor Digitado: " + sq);
                         Console.Write("\nValor Inválido para Saque! Digite Novamente o Valor: ");
                     }
-                    else if (conta.Saldo < saque)
+                    else if (saque > conta.Saldo)
                     {
                         Console.Clear();
                         Console.Write($"Saldo Atual em Conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
@@ -92,18 +95,20 @@ namespace Exercicio1
                         Console.Write("\nSaldo Insuficiente para Relização de Saque!\nDigite um Valor Menor: ");
                     }
                 } while (saque <= 0 || saque > conta.Saldo);
-
-                conta.Saque(saque);
-
-                Console.Clear();
-
-                Console.WriteLine("Valor do Saque: " + saque.ToString("F2", CultureInfo.InvariantCulture));
-                Console.WriteLine(conta);
             }
             else
             {
-                Console.WriteLine("Agradecemos sua Preferia com Nosso Banco! \nTenha um Bom Dia.");
+                Console.WriteLine("Seu Atendimento Foi Concluido. Agradecemos a confiança. \nDesejamos um ótimo dia!");
+                Console.ReadLine();
             }
+
+            conta.Saque(saque);
+
+            Console.Clear();
+
+            Console.WriteLine("Valor do Saque: " + saque.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine(conta);
+            Console.ReadLine();
 
         }
     }
