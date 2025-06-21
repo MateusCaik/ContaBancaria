@@ -2,7 +2,7 @@
 
 namespace Exercicio1
 {
-    class ContaBancaria
+    class BankAccount
     {
 
         public int Number { get; private set; }
@@ -10,14 +10,14 @@ namespace Exercicio1
         public double Balance { get; private set; }
 
         //construtor sem depósito inicial
-        public ContaBancaria(int number, string holder)
+        public BankAccount(int number, string holder)
         {
             Number = number;
             Holder = holder;
         }
 
         //construtor com depósito inicial
-        public ContaBancaria(int number, string holder, double initialDeposit) : this(number, holder)
+        public BankAccount(int number, string holder, double initialDeposit) : this(number, holder)
         {
             Deposit(initialDeposit);
         }

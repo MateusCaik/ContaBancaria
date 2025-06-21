@@ -8,7 +8,7 @@ namespace Exercicio1
         static void Main(string[] args)
         {
 
-            ContaBancaria account;
+            BankAccount account;
 
             Console.Write($"Enter account details\n\nAccount number: ");
             int number;
@@ -42,12 +42,12 @@ namespace Exercicio1
                 {
                     Console.Write("Invalid amount for deposit! Type it again: ");
                 }
-                account = new ContaBancaria(number, name, balance);
+                account = new BankAccount(number, name, balance);
             }
             else
             {
                 Console.Clear();
-                account = new ContaBancaria(number, name);
+                account = new BankAccount(number, name);
             }
 
             Console.WriteLine(account);
