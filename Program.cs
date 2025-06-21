@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Exercicio1
 {
@@ -7,107 +8,107 @@ namespace Exercicio1
         static void Main(string[] args)
         {
 
-            ContaBancaria conta;
+            ContaBancaria account;
 
-            Console.Write($"Entre com os dados da conta\n\nNúmero da conta: ");
-            int numero;
+            Console.Write($"Enter account details\n\nAccount number: ");
+            int number;
             //Teste para ver se é um INT que está sendo digitado mesmo
-            while (!int.TryParse(Console.ReadLine(), out numero))
+            while (!int.TryParse(Console.ReadLine(), out number))
             {
                 Console.Clear();
-                Console.Write("Número Inválido! Digite Novamente: ");
+                Console.Write("Invalid Number! Type it again: ");
             }
 
-            String nome;
-            Console.Write("Nome do Titular da Conta: ");
+            String name;
+            Console.Write("Account holder name: ");
             do
             {
-                nome = Console.ReadLine();
+                name = Console.ReadLine();
                 //Verifica se tem espaço vazio e se tem numeros
-                if (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit))
+                if (string.IsNullOrWhiteSpace(name) || name.Any(char.IsDigit))
                 {
                     Console.Clear();
-                    Console.Write("Nome Inválido! Digite Novamente: ");
+                    Console.Write("Invalid name! Type it again: ");
                 }
-            } while (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit));
+            } while (string.IsNullOrWhiteSpace(name) || name.Any(char.IsDigit));
 
-            Console.Write("Haverá depósito inicial (s/n)?");
+            Console.Write("Will there be an initial deposit? (Y/N)");
             string resp = Console.ReadLine().ToUpper();//transformar o que for digitado em CAPSLOCK
-            if (resp == "S" || resp == "SIM")
+            if (resp == "Y" || resp == "YES")
             {
-                Console.Write("Entre com o valor incial: ");
-                double saldo;
-                while (!double.TryParse(Console.ReadLine(), out saldo) || saldo <= 0)
+                Console.Write("Enter the initial value: ");
+                double balance;
+                while (!double.TryParse(Console.ReadLine(), out balance) || balance <= 0)
                 {
-                    Console.Write("Valor Inválido para Depósito! Digite Novamente: ");
+                    Console.Write("Invalid amount for deposit! Type it again: ");
                 }
-                conta = new ContaBancaria(numero, nome, saldo);
+                account = new ContaBancaria(number, name, balance);
             }
             else
             {
                 Console.Clear();
-                conta = new ContaBancaria(numero, nome);
+                account = new ContaBancaria(number, name);
             }
 
-            Console.WriteLine(conta);
+            Console.WriteLine(account);
 
-            Console.Write("\nEntre um valor para depósito: ");
-            double deposito;
-            while (!double.TryParse(Console.ReadLine(), out deposito) || deposito <= 0)
+            Console.Write("\nEnter an amount to deposit: ");
+            double deposit;
+            while (!double.TryParse(Console.ReadLine(), out deposit) || deposit <= 0)
             {
-                Console.Write("Valor Inválido para Depósito! Digite Novamente: ");
+                Console.Write("Invalid amount for deposit! Type it again: ");
             }
-            conta.Deposito(deposito);
+            account.Deposit(deposit);
 
             Console.Clear();
 
-            Console.WriteLine("Valor Depositado: " + deposito.ToString("F2", CultureInfo.InvariantCulture));
-            Console.WriteLine(conta);
+            Console.WriteLine("Amount deposited: " + deposit.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine(account);
 
-            Console.Write("\nDeseja realizar saque (s/n)?");
+                Console.Write("\nDo you want to make a withdrawal? (Y/N)");
             string respS = Console.ReadLine().ToUpper();
 
             Console.Clear();
-            double saque = 0.0;
+            double sake = 0.0;
 
-            if (respS == "S" || respS == "SIM")
+            if (respS == "Y" || respS == "YES")
             {
-                Console.Write($"Saldo Atual em conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
-                Console.Write("\nDigite o Valor para Saque: ");
+                Console.Write($"Current account balance: ${account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+                Console.Write("\nEnter the amount to withdraw: ");
 
                 do
                 {
 
                     string sq = Console.ReadLine();
 
-                    if (!double.TryParse(sq, NumberStyles.Float, CultureInfo.InvariantCulture, out saque) || saque <= 0)
+                    if (!double.TryParse(sq, NumberStyles.Float, CultureInfo.InvariantCulture, out sake) || sake <= 0)
                     {
                         Console.Clear();
-                        Console.Write($"Saldo Atual em Conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
-                        Console.Write("\nValor Digitado: " + sq);
-                        Console.Write("\nValor Inválido para Saque! Digite Novamente o Valor: ");
+                        Console.Write($"Current account balance: ${account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Console.Write("\nRequested amount: " + sq);
+                        Console.Write("\nInvalid amount for withdrawal! Enter the value again: ");
                     }
-                    else if (saque > conta.Saldo)
+                    else if (sake > account.Balance)
                     {
                         Console.Clear();
-                        Console.Write($"Saldo Atual em Conta: ${conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
-                        Console.Write("\nValor Digitado: " + sq);
-                        Console.Write("\nSaldo Insuficiente para Relização de Saque!\nDigite um Valor Menor: ");
+                        Console.Write($"Current account balance: ${account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Console.Write("\nRequested amount: " + sq);
+                        Console.Write("\nInsufficient balance to make withdrawal!\nEnter a lower value: ");
                     }
-                } while (saque <= 0 || saque > conta.Saldo);
+                } while (sake <= 0 || sake > account.Balance);
             }
             else
             {
-                Console.WriteLine("Seu Atendimento Foi Concluido. Agradecemos a confiança. \nDesejamos um ótimo dia!");
+                Console.WriteLine("Your service has been completed. \nWe wish you a great day!");
                 Console.ReadLine();
             }
 
-            conta.Saque(saque);
+            account.Sake(sake);
 
             Console.Clear();
 
-            Console.WriteLine("Valor do Saque: " + saque.ToString("F2", CultureInfo.InvariantCulture));
-            Console.WriteLine(conta);
+            Console.WriteLine("Withdrawal amount: " + sake.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine(account);
             Console.ReadLine();
 
         }

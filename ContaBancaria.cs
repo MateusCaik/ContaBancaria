@@ -5,46 +5,46 @@ namespace Exercicio1
     class ContaBancaria
     {
 
-        public int Numero { get; private set; }
-        public string Titular { get; private set; }
-        public double Saldo { get; private set; }
+        public int Number { get; private set; }
+        public string Holder { get; private set; }
+        public double Balance { get; private set; }
 
         //construtor sem depósito inicial
-        public ContaBancaria(int numero, string titular)
+        public ContaBancaria(int number, string holder)
         {
-            Numero = numero;
-            Titular = titular;
+            Number = number;
+            Holder = holder;
         }
 
         //construtor com depósito inicial
-        public ContaBancaria(int numero, string titular, double depositoInicial) : this(numero, titular)
+        public ContaBancaria(int number, string holder, double initialDeposit) : this(number, holder)
         {
-            Deposito(depositoInicial);
+            Deposit(initialDeposit);
         }
 
-        public void Deposito(double quantia)
+        public void Deposit(double amount)
         {
-            Saldo += quantia;
+            Balance += amount;
         }
 
-        public void Saque(double quantia)
+        public void Sake(double amount)
         {
-            if (quantia >= 1000.00)
+            if (amount>= 1000.00)
             {
-                Saldo -= quantia + 50.0;//Descontar 50 reais, caso seja de 1k||>>
+                Balance -= amount + 50.0;//Descontar 50 reais, caso seja de 1k||>>
             }
             else
             {
-                Saldo -= quantia + 5.0;//Descontar 5 reais de saque
+                Balance -= amount + 5.0;//Descontar 5 reais de saque
             }
 
         }
 
         public override string ToString()
         {
-            return "\nNúmero da Conta: " + Numero
-                + "\nTitular: " + Titular
-                + "\nSaldo em conta: $ " + Saldo.ToString("F2", CultureInfo.InvariantCulture);
+            return "\nAccount number: " + Number
+                + "\nAccounter holder: " + Holder
+                + "\nAccount balance: $ " + Balance.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
