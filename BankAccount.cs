@@ -2,7 +2,7 @@
 
 namespace Exercicio1
 {
-    class BankAccount
+    public class BankAccount
     {
 
         public int Number { get; private set; }
