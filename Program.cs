@@ -8,8 +8,9 @@ namespace Exercicio1
         static void Main(string[] args)
         {
 
+            DateTime date = DateTime.Now;
             BankAccount account;
-
+            
             Console.Write($"Enter account details\n\nAccount number: ");
             int number;
             //Teste para ver se é um INT que está sendo digitado mesmo
@@ -50,6 +51,7 @@ namespace Exercicio1
                 account = new BankAccount(number, name);
             }
 
+            Console.Clear();
             Console.WriteLine(account);
 
             Console.Write("\nEnter an amount to deposit: ");
@@ -62,7 +64,7 @@ namespace Exercicio1
 
             Console.Clear();
 
-            Console.WriteLine("Amount deposited: " + deposit.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine(date.ToString("dd/MM/yyyy HH:mm") + "\n\nAmount deposited: " + deposit.ToString("F2", CultureInfo.InvariantCulture));
             Console.WriteLine(account);
 
                 Console.Write("\nDo you want to make a withdrawal? (Y/N)");
@@ -73,7 +75,7 @@ namespace Exercicio1
 
             if (respS == "Y" || respS == "YES")
             {
-                Console.Write($"Current account balance: ${account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+                Console.Write("Current account balance: $"+ account.Balance.ToString("F2", CultureInfo.InvariantCulture));
                 Console.Write("\nEnter the amount to withdraw: ");
 
                 do
@@ -84,14 +86,14 @@ namespace Exercicio1
                     if (!double.TryParse(sq, NumberStyles.Float, CultureInfo.InvariantCulture, out sake) || sake <= 0)
                     {
                         Console.Clear();
-                        Console.Write($"Current account balance: ${account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Console.Write("Current account balance: $" + account.Balance.ToString("F2", CultureInfo.InvariantCulture));
                         Console.Write("\nRequested amount: " + sq);
                         Console.Write("\nInvalid amount for withdrawal! Enter the value again: ");
                     }
                     else if (sake > account.Balance)
                     {
                         Console.Clear();
-                        Console.Write($"Current account balance: ${account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Console.Write("Current account balance: $" + account.Balance.ToString("F2", CultureInfo.InvariantCulture));
                         Console.Write("\nRequested amount: " + sq);
                         Console.Write("\nInsufficient balance to make withdrawal!\nEnter a lower value: ");
                     }
@@ -107,8 +109,10 @@ namespace Exercicio1
 
             Console.Clear();
 
-            Console.WriteLine("Withdrawal amount: " + sake.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine(date.ToString("dd/MM/yyyy HH:mm") + "\n\nWithdrawal amount: " + sake.ToString("F2", CultureInfo.InvariantCulture));
             Console.WriteLine(account);
+            Console.WriteLine("\nYour service has been completed. \nWe wish you a great day!");
+
             Console.ReadLine();
 
         }
