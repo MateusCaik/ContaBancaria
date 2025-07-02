@@ -1,7 +1,6 @@
-using System;
 using System.Globalization;
 
-namespace Exercicio1
+namespace BanckAccount.Utils
 {
     public static class InputValidator
     {

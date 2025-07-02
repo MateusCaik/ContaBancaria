@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Exercicio1
+namespace BanckAccount.Models
 {
     public class BankAccount
     {
